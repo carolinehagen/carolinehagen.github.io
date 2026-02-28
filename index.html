@@ -669,13 +669,13 @@
   <div id="about-wrap" class="fade-in">
     <div class="about-bio">
       <p>
-        I'm a hardware engineer specializing in <strong>FPGA design for space systems</strong>, currently at <strong>Astranis Space Technologies</strong> building satellites for high orbits. My work lives at the intersection of digital logic, embedded systems, and the extreme demands of the space environment.
+        I'm a hardware engineer specializing in FPGA design for space systems, currently at Astranis Space Technologies building satellites for high orbits. My work lives at the intersection of digital logic, embedded systems, and the extreme demands of the space environment.
       </p>
       <p>
-        Before Astranis, I spent a year at <strong>Blue Origin</strong> as an FPGA Engineer on the Lunar Permanence program, and before that at <strong>Intellian Technologies</strong> designing logic for satellite communications systems. My career started at <strong>Cobham Advanced Electronic Solutions</strong> (now Honeywell) in defense electronics.
+        Before Astranis, I spent a year at Blue Origin as an FPGA Engineer on the Lunar Permanence program, and before that at Intellian Technologies designing RTL logic for user terminals (one of the earth-dwelling components of a satellite network). My career started at Cobham Advanced Electronic Solutions (CAES) designing PCB's for defense applications. At CAES I learned the fundamentals of PCB design and debug.
       </p>
       <p>
-        I earned my B.S. in Electrical & Computer Engineering from <strong>Temple University</strong> and am now pursuing my <strong>M.S. in Computer Engineering at Johns Hopkins Whiting School of Engineering</strong>.
+        I earned my B.S. in Electrical & Computer Engineering from Temple University and am now pursuing my M.S. in Electrical and Computer Engineering at Johns Hopkins Whiting School of Engineering.
       </p>
     </div>
     <div class="stats-grid">
@@ -710,9 +710,9 @@
       <div class="exp-card">
         <div class="exp-header">
           <div class="exp-role">Systems FPGA Engineer II</div>
-          <div class="exp-date">Sep 2025 — Present</div>
+          <div class="exp-date" id="astranis-tenure">Sep 2025 — Present · 6 mos</div>
         </div>
-        <div class="exp-company">Astranis Space Technologies</div>
+        <div class="exp-company">Astranis Space Technologies · San Francisco, CA</div>
         <div class="exp-desc">
           Building satellites for high orbits. Designing and verifying FPGA logic for geostationary systems where reliability is non-negotiable and every design decision has to survive the harshness of space.
         </div>
@@ -772,7 +772,7 @@
           <div class="exp-role">Digital Engineer</div>
           <div class="exp-date">Jan 2022 — Jun 2023 · 1 yr 6 mos</div>
         </div>
-        <div class="exp-company">Cobham Advanced Electronic Solutions (now Honeywell) · Full-time</div>
+        <div class="exp-company">Cobham Advanced Electronic Solutions (CAES) · Full-time · Lansdale, PA</div>
         <div class="exp-desc">
           Digital PCB design in Altium.
         </div>
@@ -839,10 +839,6 @@
           <span class="skill-name">Space-Grade Design</span>
           <div class="skill-used"></div>
         </div>
-        <div class="skill-row">
-          <span class="skill-name">Embedded Firmware</span>
-          <div class="skill-used"></div>
-        </div>
       </div>
     </div>
 
@@ -854,45 +850,58 @@
           <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <span class="skill-name">Intel Quartus</span>
+          <span class="skill-name">Libero SoC</span>
           <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <span class="skill-name">MATLAB / Simulink</span>
+          <span class="skill-name">Linux</span>
           <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <span class="skill-name">Python</span>
+          <span class="skill-name">Bazel</span>
           <div class="skill-used"></div>
         </div>
         <div class="skill-row">
           <span class="skill-name">Git / Version Control</span>
           <div class="skill-used"></div>
         </div>
+        <div class="skill-row">
+          <span class="skill-name">Claude Code</span>
+          <div class="skill-used"></div>
+        </div>
       </div>
     </div>
 
     <div class="skill-category fade-in">
-      <div class="skill-cat-title"><span class="icon">📡</span> Signal & Digital</div>
+      <div class="skill-cat-title"><span class="icon">🔌</span> Interfaces</div>
       <div class="skill-bars">
         <div class="skill-row">
-          <span class="skill-name">Digital Signal Processing</span>
+          <span class="skill-name">SPI</span>
           <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <span class="skill-name">High-Speed Interfaces</span>
+          <span class="skill-name">UART</span>
           <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <span class="skill-name">PCB / Hardware Debug</span>
+          <span class="skill-name">I2C</span>
           <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <span class="skill-name">RF Systems</span>
+          <span class="skill-name">Ethernet</span>
+          <div class="skill-used"></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">AXI-S</span>
+          <div class="skill-used"></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">SpaceWire</span>
           <div class="skill-used"></div>
         </div>
       </div>
     </div>
+
 
   </div>
 </section>
@@ -903,12 +912,18 @@
   <h2>Where I Studied</h2>
   <div class="edu-grid">
     <div class="edu-card fade-in">
-      <div class="edu-degree">M.S. Computer Engineering</div>
+      <div class="edu-degree">M.S. Electrical &amp; Computer Engineering</div>
       <div class="edu-school">Johns Hopkins Whiting School of Engineering</div>
       <div class="edu-year">2024 — 2027 · GPA: 4.0</div>
-      <div style="margin-top:0.75rem;" class="exp-tags">
-        <span class="tag">Radiation Effects</span>
-        <span class="tag">Embedded C</span>
+      <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--muted);">
+        <div style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--accent);margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.05em;">Courses</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.25rem;">
+          <li>Embedded Microprocessor Systems <span style="opacity:0.6;">· EN.525.615</span></li>
+          <li>FPGA Using VHDL <span style="opacity:0.6;">· EN.525.642</span></li>
+          <li>Operating Systems <span style="opacity:0.6;">· CIS 3207</span></li>
+          <li>System-on-a-Chip FPGA Design <span style="opacity:0.6;">· EN.525.742</span></li>
+          <li>Systems Engineering for Space <span style="opacity:0.6;">· EN.675.600</span></li>
+        </ul>
       </div>
     </div>
     <div class="edu-card fade-in">
@@ -931,15 +946,16 @@
 
     <div class="skill-category fade-in">
       <div class="skill-cat-title"><span class="icon">🏓</span> Ping Pong</div>
-      <div class="about-bio" style="font-size:0.95rem;">
-        <p>Fast reflexes and split-second decisions — not unlike timing closure. Competitive table tennis player who takes the game seriously.</p>
-      </div>
     </div>
 
     <div class="skill-category fade-in">
       <div class="skill-cat-title"><span class="icon">🏔️</span> Hiking</div>
+    </div>
+
+    <div class="skill-category fade-in">
+      <div class="skill-cat-title"><span class="icon">✏️</span> Crossword</div>
       <div class="about-bio" style="font-size:0.95rem;">
-        <p>Exploring trails in the Bay Area and beyond. There's something grounding about being completely off-grid after spending the week designing hardware that orbits Earth.</p>
+        <p>I like crossword puzzles and I made my own. <a href="https://crosswordlabs.com/view/fpga-4" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600;">Play it here ↗</a></p>
       </div>
     </div>
 
@@ -1074,6 +1090,21 @@ document.querySelector('.btn-primary[href="#experience"]')?.addEventListener('cl
 });
 
 showPage('hero');
+
+// Auto-calculate Astranis tenure
+(function() {
+  const start = new Date(2025, 8, 1); // Sep 2025
+  const now = new Date();
+  let months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+  if (now.getDate() < start.getDate()) months--;
+  months = Math.ceil(months + (now.getDate() >= start.getDate() ? 1 : 0));
+  const years = Math.floor(months / 12);
+  const rem = months % 12;
+  const duration = years > 0
+    ? (rem > 0 ? `${years} yr ${rem} mos` : `${years} yr`)
+    : `${months} mos`;
+  document.getElementById('astranis-tenure').textContent = `Sep 2025 — Present · ${duration}`;
+})();
 </script>
 </body>
 </html>

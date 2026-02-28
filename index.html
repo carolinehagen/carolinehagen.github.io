@@ -458,42 +458,39 @@
     .skill-bars {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0;
     }
 
     .skill-row {
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(124,58,237,0.06);
     }
 
-    .skill-row-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
+    .skill-row:last-child { border-bottom: none; }
+
+    .skill-name {
+      font-size: 0.88rem;
       color: var(--text);
     }
 
-    .skill-pct {
+    .skill-used {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .used-tag {
       font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-    }
-
-    .bar-track {
-      height: 3px;
-      background: rgba(0,0,0,0.07);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: 2px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 0.58rem;
+      color: var(--accent);
+      background: rgba(124,58,237,0.07);
+      border: 1px solid rgba(124,58,237,0.15);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      letter-spacing: 0.04em;
     }
 
     /* ── EDUCATION ── */
@@ -642,6 +639,7 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -774,7 +772,7 @@
         </div>
         <div class="exp-company">Cobham Advanced Electronic Solutions (now Honeywell) · Full-time</div>
         <div class="exp-desc">
-          Worked on embedded digital systems at a defense and space electronics supplier. Gained deep experience in RTL development and embedded systems before the company's acquisition by Honeywell.
+          Digital PCB design in Altium.
         </div>
         <div class="exp-tags">
           <span class="tag">Embedded Systems</span>
@@ -798,24 +796,28 @@
       <div class="skill-cat-title"><span class="icon">⚡</span> FPGA & HDL</div>
       <div class="skill-bars">
         <div class="skill-row">
-          <div class="skill-row-label"><span>VHDL</span><span class="skill-pct">90%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.90"></div></div>
+          <span class="skill-name">Verilog / SystemVerilog</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Verilog / SystemVerilog</span><span class="skill-pct">85%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.85"></div></div>
+          <span class="skill-name">RTL Design</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>RTL Design</span><span class="skill-pct">90%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.90"></div></div>
+          <span class="skill-name">Timing Closure</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Timing Closure</span><span class="skill-pct">80%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.80"></div></div>
+          <span class="skill-name">Simulation & Verification</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Simulation & Verification</span><span class="skill-pct">85%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.85"></div></div>
+          <span class="skill-name">VHDL</span>
+          <div class="skill-used">
+            <span class="used-tag">CAES</span>
+            <span class="used-tag">JHU · FPGA Design</span>
+            <span class="used-tag">JHU · FPGA SOC</span>
+          </div>
         </div>
       </div>
     </div>
@@ -824,20 +826,20 @@
       <div class="skill-cat-title"><span class="icon">🛰️</span> Space Systems</div>
       <div class="skill-bars">
         <div class="skill-row">
-          <div class="skill-row-label"><span>GEO Satellite Hardware</span><span class="skill-pct">85%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.85"></div></div>
+          <span class="skill-name">GEO Satellite Hardware</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Avionics Systems</span><span class="skill-pct">75%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.75"></div></div>
+          <span class="skill-name">Avionics Systems</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Space-Grade Design</span><span class="skill-pct">80%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.80"></div></div>
+          <span class="skill-name">Space-Grade Design</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Embedded Firmware</span><span class="skill-pct">75%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.75"></div></div>
+          <span class="skill-name">Embedded Firmware</span>
+          <div class="skill-used"></div>
         </div>
       </div>
     </div>
@@ -846,24 +848,24 @@
       <div class="skill-cat-title"><span class="icon">🔧</span> Tools & EDA</div>
       <div class="skill-bars">
         <div class="skill-row">
-          <div class="skill-row-label"><span>Xilinx Vivado</span><span class="skill-pct">85%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.85"></div></div>
+          <span class="skill-name">Xilinx Vivado</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Intel Quartus</span><span class="skill-pct">75%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.75"></div></div>
+          <span class="skill-name">Intel Quartus</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>MATLAB / Simulink</span><span class="skill-pct">70%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.70"></div></div>
+          <span class="skill-name">MATLAB / Simulink</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Python</span><span class="skill-pct">80%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.80"></div></div>
+          <span class="skill-name">Python</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>Git / Version Control</span><span class="skill-pct">85%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.85"></div></div>
+          <span class="skill-name">Git / Version Control</span>
+          <div class="skill-used"></div>
         </div>
       </div>
     </div>
@@ -872,20 +874,20 @@
       <div class="skill-cat-title"><span class="icon">📡</span> Signal & Digital</div>
       <div class="skill-bars">
         <div class="skill-row">
-          <div class="skill-row-label"><span>Digital Signal Processing</span><span class="skill-pct">80%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.80"></div></div>
+          <span class="skill-name">Digital Signal Processing</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>High-Speed Interfaces</span><span class="skill-pct">75%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.75"></div></div>
+          <span class="skill-name">High-Speed Interfaces</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>PCB / Hardware Debug</span><span class="skill-pct">70%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.70"></div></div>
+          <span class="skill-name">PCB / Hardware Debug</span>
+          <div class="skill-used"></div>
         </div>
         <div class="skill-row">
-          <div class="skill-row-label"><span>RF Systems</span><span class="skill-pct">65%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-pct="0.65"></div></div>
+          <span class="skill-name">RF Systems</span>
+          <div class="skill-used"></div>
         </div>
       </div>
     </div>
@@ -919,9 +921,32 @@
   </div>
 </section>
 
+<!-- HOBBIES -->
+<section id="hobbies">
+  <div class="section-label" data-num="05">Hobbies</div>
+  <h2>Outside the Lab</h2>
+  <div class="skills-grid">
+
+    <div class="skill-category fade-in">
+      <div class="skill-cat-title"><span class="icon">🏓</span> Ping Pong</div>
+      <div class="about-bio" style="font-size:0.95rem;">
+        <p>Fast reflexes and split-second decisions — not unlike timing closure. Competitive table tennis player who takes the game seriously.</p>
+      </div>
+    </div>
+
+    <div class="skill-category fade-in">
+      <div class="skill-cat-title"><span class="icon">🏔️</span> Hiking</div>
+      <div class="about-bio" style="font-size:0.95rem;">
+        <p>Exploring trails in the Bay Area and beyond. There's something grounding about being completely off-grid after spending the week designing hardware that orbits Earth.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label" data-num="05" style="justify-content:center;">Contact</div>
+  <div class="section-label" data-num="06" style="justify-content:center;">Contact</div>
   <div class="contact-inner">
     <h2 style="margin-bottom:1.5rem;">Let's Connect</h2>
     <p>Interested in FPGA design for space, working together, or just want to talk hardware? I'd love to hear from you.</p>
@@ -933,7 +958,7 @@
 </section>
 
 <footer>
-  <div class="footer-copy">© 2026 Caroline Hagen — Seattle, WA</div>
+  <div class="footer-copy">© 2026 Caroline Hagen — San Francisco, CA</div>
   <div class="footer-copy">FPGA Engineer · Space Systems</div>
 </footer>
 

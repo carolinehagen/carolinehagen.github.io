@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Caroline Hagen — FPGA Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Boogaloo&family=Creepster&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Fredoka&family=Kablammo&family=Kranky&family=Lilita+One&family=Permanent+Marker&family=Rammetto+One&family=Righteous&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #f8f8ff;
@@ -628,6 +628,231 @@
       .edu-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 0.5rem; }
     }
+
+    /* ── FLASH CARDS ── */
+    #fc-wrap {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    #fc-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-width: 158px;
+      flex-shrink: 0;
+      padding-top: 0.15rem;
+    }
+
+    #fc-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.75rem;
+      min-width: 0;
+    }
+
+    .fc-folder-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.67rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.6rem 0.85rem;
+      border-radius: 6px;
+      border: 1px solid rgba(124,58,237,0.25);
+      background: rgba(255,255,255,0.85);
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    .fc-folder-btn:hover {
+      border-color: rgba(124,58,237,0.35);
+      color: var(--accent);
+      background: rgba(124,58,237,0.04);
+    }
+
+    .fc-folder-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(124,58,237,0.15);
+      font-weight: 700;
+    }
+
+    .fc-folder-count {
+      font-size: 0.6rem;
+      opacity: 0.8;
+      margin-left: auto;
+    }
+
+    #fc-progress {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .fc-scene {
+      width: 100%;
+      max-width: 680px;
+      height: 320px;
+      perspective: 1200px;
+      cursor: pointer;
+    }
+
+    .fc-card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fc-card.flipped { transform: rotateY(180deg); }
+
+    .fc-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;
+      text-align: center;
+      border: 1px solid rgba(124,58,237,0.15);
+      box-shadow: 0 4px 24px rgba(124,58,237,0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    .fc-front { background: rgba(255,255,255,0.88); }
+
+    .fc-back {
+      background: linear-gradient(135deg, rgba(124,58,237,0.06), rgba(217,70,168,0.06));
+      transform: rotateY(180deg);
+    }
+
+    .fc-side-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      opacity: 0.7;
+    }
+
+    .fc-text {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    .fc-back .fc-text { color: #374151; }
+
+    .fc-hint {
+      margin-top: 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .fc-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .fc-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      border-radius: 4px;
+      border: 1px solid rgba(124,58,237,0.4);
+      color: var(--accent);
+      background: rgba(255,255,255,0.85);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .fc-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: rgba(124,58,237,0.06);
+    }
+
+    .fc-btn:disabled { opacity: 0.3; cursor: default; }
+
+    .fc-verdict {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .fc-verdict-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.1rem;
+      border-radius: 4px;
+      border: 1px solid;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .fc-correct {
+      color: var(--accent3);
+      border-color: rgba(16,185,129,0.5);
+      background: rgba(16,185,129,0.15);
+    }
+
+    .fc-correct:hover { background: rgba(16,185,129,0.12); border-color: var(--accent3); }
+
+    .fc-missed {
+      color: var(--accent2);
+      border-color: rgba(217,70,168,0.5);
+      background: rgba(217,70,168,0.15);
+    }
+
+    .fc-missed:hover { background: rgba(217,70,168,0.12); border-color: var(--accent2); }
+
+    #flashcards h2 {
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      line-height: 1.3;
+    }
+
+    #flashcards h2 span {
+      display: inline-block;
+    }
+
+    #fc-loading {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 640px) {
+      #fc-wrap { flex-direction: column; }
+      #fc-sidebar { flex-direction: row; flex-wrap: wrap; min-width: 0; }
+    }
   </style>
 </head>
 <body>
@@ -643,6 +868,7 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#flashcards">Flash Cards</a></li>
   </ul>
 </nav>
 
@@ -963,6 +1189,15 @@
   </div>
 </section>
 
+<!-- FLASH CARDS -->
+<section id="flashcards">
+  <div class="section-label" data-num="07">Flash Cards</div>
+  <h2>Caroline's Super Important Flashcards</h2>
+  <div id="fc-wrap">
+    <div id="fc-loading">Loading cards…</div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-label" data-num="06" style="justify-content:center;">Contact</div>
@@ -1092,6 +1327,214 @@ document.querySelector('.btn-primary[href="#experience"]')?.addEventListener('cl
 
 showPage('hero');
 
+// ── FLASH CARDS ──
+// To add cards: edit flashcards.csv (format: question,answer,category).
+// FALLBACK_CSV below is used when the page is opened as a local file.
+(function () {
+  const FALLBACK_CSV = `question,answer,category
+What is the largest planet in our solar system?,Jupiter — a gas giant with a mass greater than all other planets combined.,Space
+How far is the Moon from Earth on average?,About 384,400 km (238,855 miles) — roughly 1.3 light-seconds away.,Space
+What is the speed of light?,Approximately 299,792,458 m/s — light can circle Earth about 7.5 times per second.,Space
+What causes the phases of the Moon?,The Moon's orbit around Earth changes the angle at which sunlight strikes its visible face as seen from Earth.,Space
+How many planets are in our solar system?,Eight: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune.,Space
+What is the Milky Way?,The barred spiral galaxy that contains our solar system — roughly 100,000 light-years across.,Space
+What is a black hole?,A region of spacetime where gravity is so strong that nothing — not even light — can escape past the event horizon.,Space
+What is a neutron star?,The ultra-dense collapsed core left after a massive star explodes in a supernova — a teaspoon of material weighs about a billion tons.,Space
+What is the Hubble Space Telescope?,A space telescope launched in 1990 that orbits Earth at ~547 km altitude and has captured deep-field images of galaxies billions of light-years away.,Space
+What is the International Space Station (ISS)?,A modular outpost in low Earth orbit (~400 km up) jointly operated by NASA, Roscosmos, ESA, JAXA, and CSA — continuously inhabited since November 2000.,Space`;
+
+  const WRONG_KEY = 'fc_wrong';
+
+  let allCards = [];
+  let deck = [];       // filtered cards currently shown
+  let current = 0;
+  let activeFolder = 'All';
+  let loaded = false;
+
+  // ── localStorage helpers ──
+  function getWrong() {
+    try { return new Set(JSON.parse(localStorage.getItem(WRONG_KEY) || '[]')); }
+    catch { return new Set(); }
+  }
+  function setWrong(s) { localStorage.setItem(WRONG_KEY, JSON.stringify([...s])); }
+
+  // ── CSV parser — supports question,answer,category (3 cols) ──
+  function parseCSV(text) {
+    return text.trim().split('\n').slice(1).map(line => {
+      const parts = line.split(',');
+      if (parts.length < 2) return null;
+      const q = parts[0].trim();
+      if (parts.length === 2) return { q, a: parts[1].trim(), cat: 'General' };
+      const cat = parts[parts.length - 1].trim();
+      const a = parts.slice(1, parts.length - 1).join(',').trim();
+      return { q, a, cat };
+    }).filter(c => c && c.q && c.a);
+  }
+
+  function getDeck(folder) {
+    if (folder === 'All') return [...allCards];
+    if (folder === 'Wrong') { const w = getWrong(); return allCards.filter(c => w.has(c.q)); }
+    return allCards.filter(c => c.cat === folder);
+  }
+
+  // ── Sidebar ──
+  function buildSidebar() {
+    const sidebar = document.getElementById('fc-sidebar');
+    const wrong = getWrong();
+    const csvCats = [...new Set(allCards.map(c => c.cat))];
+
+    const btn = (folder, icon, label, count) =>
+      `<button class="fc-folder-btn${activeFolder === folder ? ' active' : ''}" data-folder="${folder}">
+        ${icon} ${label}<span class="fc-folder-count">${count}</span>
+      </button>`;
+
+    let html = btn('All', '📁', 'All', allCards.length);
+    csvCats.forEach(cat => {
+      html += btn(cat, '🗂️', cat, allCards.filter(c => c.cat === cat).length);
+    });
+    html += btn('Wrong', '✗', 'Wrong', wrong.size);
+
+    sidebar.innerHTML = html;
+
+    sidebar.querySelectorAll('.fc-folder-btn[data-folder]').forEach(b => {
+      b.addEventListener('click', () => {
+        activeFolder = b.dataset.folder;
+        deck = getDeck(activeFolder);
+        current = 0;
+        buildSidebar();
+        buildMain();
+      });
+    });
+  }
+
+  // ── Main card area ──
+  function buildMain() {
+    const main = document.getElementById('fc-main');
+    if (deck.length === 0) {
+      main.innerHTML = `<p style="font-family:'Space Mono',monospace;font-size:0.8rem;
+        color:var(--muted);text-align:center;padding:3rem 0;">No cards in this folder.</p>`;
+      return;
+    }
+
+    main.innerHTML = `
+      <div id="fc-progress"></div>
+      <div class="fc-scene" id="fc-scene">
+        <div class="fc-card" id="fc-card">
+          <div class="fc-face fc-front">
+            <div class="fc-side-label">Question</div>
+            <div class="fc-text" id="fc-q"></div>
+            <div class="fc-hint">click to reveal answer</div>
+          </div>
+          <div class="fc-face fc-back">
+            <div class="fc-side-label">Answer</div>
+            <div class="fc-text" id="fc-a"></div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-controls">
+        <button class="fc-btn" id="fc-prev">← Prev</button>
+        <button class="fc-btn" id="fc-next">Next →</button>
+      </div>
+      <div class="fc-verdict">
+        <button class="fc-verdict-btn fc-correct" id="fc-got-it">✓ Got it</button>
+        <button class="fc-verdict-btn fc-missed" id="fc-missed">✗ Missed it</button>
+      </div>`;
+
+    document.getElementById('fc-scene').addEventListener('click', () => {
+      document.getElementById('fc-card').classList.toggle('flipped');
+    });
+    document.getElementById('fc-prev').addEventListener('click', () => {
+      current = (current - 1 + deck.length) % deck.length; renderCard();
+    });
+    document.getElementById('fc-next').addEventListener('click', () => {
+      current = (current + 1) % deck.length; renderCard();
+    });
+
+    document.getElementById('fc-got-it').addEventListener('click', () => {
+      const w = getWrong(); w.delete(deck[current].q); setWrong(w);
+      flash('fc-got-it', '✓ Got it', '✓ Saved!');
+      buildSidebar();
+      renderCard(true);
+    });
+    document.getElementById('fc-missed').addEventListener('click', () => {
+      const w = getWrong(); w.add(deck[current].q); setWrong(w);
+      flash('fc-missed', '✗ Missed it', '✗ Noted!');
+      buildSidebar();
+      renderCard(true);
+    });
+
+    renderCard();
+  }
+
+  function flash(id, original, momentary) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = momentary;
+    setTimeout(() => { const e = document.getElementById(id); if (e) e.textContent = original; }, 900);
+  }
+
+  function renderCard(keepFlip = false) {
+    if (!deck.length) return;
+    const card = deck[current];
+    const cardEl = document.getElementById('fc-card');
+    if (cardEl && !keepFlip) cardEl.classList.remove('flipped');
+    setTimeout(() => {
+      const set = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
+      set('fc-q', card.q);
+      set('fc-a', card.a);
+      set('fc-progress', `${current + 1} / ${deck.length}`);
+      const dis = deck.length <= 1;
+      ['fc-prev','fc-next'].forEach(id => { const e = document.getElementById(id); if (e) e.disabled = dis; });
+      // Highlight which verdict applies
+      const wrong = getWrong();
+      const gotEl = document.getElementById('fc-got-it');
+      const misEl = document.getElementById('fc-missed');
+      if (gotEl) gotEl.style.opacity = wrong.has(card.q) ? '1' : '0.75';
+      if (misEl) misEl.style.opacity = wrong.has(card.q) ? '0.75' : '1';
+    }, keepFlip ? 0 : 50);
+  }
+
+  function init(csvText) {
+    allCards = parseCSV(csvText);
+    deck = getDeck(activeFolder);
+    if (allCards.length === 0) return;
+    document.getElementById('fc-wrap').innerHTML =
+      '<div id="fc-sidebar"></div><div id="fc-main"></div>';
+    buildSidebar();
+    buildMain();
+  }
+
+  function loadCards() {
+    if (loaded) return;
+    loaded = true;
+    fetch('flashcards.csv')
+      .then(r => { if (!r.ok) throw new Error(); return r.text(); })
+      .then(text => init(text))
+      .catch(() => init(FALLBACK_CSV));
+  }
+
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    if (a.getAttribute('href') === '#flashcards') a.addEventListener('click', loadCards);
+  });
+})();
+
+// ── WACKY LETTER FONTS for flashcard heading ──
+(function() {
+  const fonts = [
+    'Kablammo', 'Bangers', 'Boogaloo', 'Permanent Marker',
+    'Lilita One', 'Creepster', 'Kranky', 'Rammetto One',
+    'Fredoka', 'Righteous'
+  ];
+  const h2 = document.querySelector('#flashcards h2');
+  if (!h2) return;
+  const text = h2.textContent;
+  h2.innerHTML = [...text].map((char, i) => {
+    if (char === ' ') return ' ';
+    const font = fonts[i % fonts.length];
+    return `<span style="font-family:'${font}',cursive;">${char}</span>`;
+  }).join('');
+})();
+
 // Auto-calculate Astranis tenure
 (function() {
   const start = new Date(2025, 8, 1); // Sep 2025
@@ -1105,6 +1548,29 @@ showPage('hero');
     ? (rem > 0 ? `${years} yr ${rem} mos` : `${years} yr`)
     : `${months} mos`;
   document.getElementById('astranis-tenure').textContent = `Sep 2025 — Present · ${duration}`;
+})();
+
+// Scatter red hearts across the page
+(function() {
+  const sizes = [12, 16, 20, 26, 32, 40, 48];
+  const count = 30;
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement('div');
+    const size = sizes[Math.floor(Math.random() * sizes.length)];
+    heart.textContent = '♥';
+    heart.style.cssText = `
+      position: fixed;
+      left: ${Math.random() * 100}vw;
+      top: ${Math.random() * 100}vh;
+      font-size: ${size}px;
+      color: red;
+      opacity: ${(Math.random() * 0.35 + 0.1).toFixed(2)};
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    `;
+    document.body.appendChild(heart);
+  }
 })();
 </script>
 </body>

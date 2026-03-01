@@ -618,10 +618,50 @@
       opacity: 0.15;
     }
 
+    /* ── HAMBURGER ── */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    /* animate to X when open */
+    nav.nav-open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; flex-wrap: wrap; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        margin-top: 0.75rem;
+        border-top: 1px solid rgba(124,58,237,0.12);
+        padding-top: 0.5rem;
+      }
+      nav.nav-open .nav-links { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block;
+        padding: 0.65rem 0;
+        font-size: 0.8rem;
+        border-bottom: 1px solid rgba(124,58,237,0.07);
+      }
       section { padding: 4rem 1.5rem; }
       #hero { padding: 0 1.5rem; }
       #about-wrap { grid-template-columns: 1fr; }
@@ -739,7 +779,7 @@
     .fc-front { background: rgba(255,255,255,0.88); }
 
     .fc-back {
-      background: linear-gradient(135deg, rgba(124,58,237,0.06), rgba(217,70,168,0.06));
+      background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(217,70,168,0.18)), #fff;
       transform: rotateY(180deg);
     }
 
@@ -804,7 +844,8 @@
 
     .fc-verdict-btn {
       font-family: 'Space Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.85rem;
+      font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       padding: 0.5rem 1.1rem;
@@ -815,20 +856,26 @@
     }
 
     .fc-correct {
-      color: var(--accent3);
-      border-color: rgba(16,185,129,0.5);
-      background: rgba(16,185,129,0.15);
+      color: #ffffff;
+      border: none;
+      background: #10B981;
+      border-radius: 60% 40% 70% 30% / 40% 60% 40% 60%;
+      padding: 0.75rem 1.8rem;
+      transition: transform 0.15s, background 0.2s;
     }
 
-    .fc-correct:hover { background: rgba(16,185,129,0.12); border-color: var(--accent3); }
+    .fc-correct:hover { background: #0d9e6e; transform: scale(1.06); }
 
     .fc-missed {
-      color: var(--accent2);
-      border-color: rgba(217,70,168,0.5);
-      background: rgba(217,70,168,0.15);
+      color: #ffffff;
+      border: none;
+      background: #D946A8;
+      border-radius: 30% 70% 20% 80% / 70% 20% 80% 30%;
+      padding: 0.75rem 1.8rem;
+      transition: transform 0.15s, background 0.2s;
     }
 
-    .fc-missed:hover { background: rgba(217,70,168,0.12); border-color: var(--accent2); }
+    .fc-missed:hover { background: #c23899; transform: scale(1.06); }
 
     #flashcards h2 {
       font-size: clamp(1.8rem, 4vw, 3.2rem);
@@ -862,6 +909,9 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo" id="logo-home" style="cursor:pointer;">CH // FPGA Engineer</div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
   <ul class="nav-links">
     <li><a href="#about">Caroline</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -1313,11 +1363,19 @@ function showPage(id) {
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
+    document.querySelector('nav').classList.remove('nav-open');
     showPage(a.getAttribute('href').slice(1));
   });
 });
 
-document.getElementById('logo-home').addEventListener('click', () => showPage('hero'));
+document.getElementById('logo-home').addEventListener('click', () => {
+  document.querySelector('nav').classList.remove('nav-open');
+  showPage('hero');
+});
+
+document.getElementById('nav-toggle').addEventListener('click', () => {
+  document.querySelector('nav').classList.toggle('nav-open');
+});
 
 // Also wire the hero "View My Work" button
 document.querySelector('.btn-primary[href="#experience"]')?.addEventListener('click', e => {
@@ -1418,6 +1476,10 @@ What is the International Space Station (ISS)?,A modular outpost in low Earth or
 
     main.innerHTML = `
       <div id="fc-progress"></div>
+      <div class="fc-controls">
+        <button class="fc-btn" id="fc-prev">← Prev</button>
+        <button class="fc-btn" id="fc-next">Next →</button>
+      </div>
       <div class="fc-scene" id="fc-scene">
         <div class="fc-card" id="fc-card">
           <div class="fc-face fc-front">
@@ -1431,17 +1493,16 @@ What is the International Space Station (ISS)?,A modular outpost in low Earth or
           </div>
         </div>
       </div>
-      <div class="fc-controls">
-        <button class="fc-btn" id="fc-prev">← Prev</button>
-        <button class="fc-btn" id="fc-next">Next →</button>
-      </div>
-      <div class="fc-verdict">
+      <div class="fc-verdict" id="fc-verdict" style="display:none;">
         <button class="fc-verdict-btn fc-correct" id="fc-got-it">✓ Got it</button>
         <button class="fc-verdict-btn fc-missed" id="fc-missed">✗ Missed it</button>
       </div>`;
 
     document.getElementById('fc-scene').addEventListener('click', () => {
-      document.getElementById('fc-card').classList.toggle('flipped');
+      const cardEl = document.getElementById('fc-card');
+      cardEl.classList.toggle('flipped');
+      const verdict = document.getElementById('fc-verdict');
+      if (verdict) verdict.style.display = cardEl.classList.contains('flipped') ? 'flex' : 'none';
     });
     document.getElementById('fc-prev').addEventListener('click', () => {
       current = (current - 1 + deck.length) % deck.length; renderCard();
@@ -1477,7 +1538,11 @@ What is the International Space Station (ISS)?,A modular outpost in low Earth or
     if (!deck.length) return;
     const card = deck[current];
     const cardEl = document.getElementById('fc-card');
-    if (cardEl && !keepFlip) cardEl.classList.remove('flipped');
+    if (cardEl && !keepFlip) {
+      cardEl.classList.remove('flipped');
+      const verdict = document.getElementById('fc-verdict');
+      if (verdict) verdict.style.display = 'none';
+    }
     setTimeout(() => {
       const set = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
       set('fc-q', card.q);
@@ -1485,12 +1550,10 @@ What is the International Space Station (ISS)?,A modular outpost in low Earth or
       set('fc-progress', `${current + 1} / ${deck.length}`);
       const dis = deck.length <= 1;
       ['fc-prev','fc-next'].forEach(id => { const e = document.getElementById(id); if (e) e.disabled = dis; });
-      // Highlight which verdict applies
-      const wrong = getWrong();
       const gotEl = document.getElementById('fc-got-it');
       const misEl = document.getElementById('fc-missed');
-      if (gotEl) gotEl.style.opacity = wrong.has(card.q) ? '1' : '0.75';
-      if (misEl) misEl.style.opacity = wrong.has(card.q) ? '0.75' : '1';
+      if (gotEl) gotEl.style.opacity = '1';
+      if (misEl) misEl.style.opacity = '1';
     }, keepFlip ? 0 : 50);
   }
 

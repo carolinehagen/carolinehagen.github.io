@@ -662,7 +662,7 @@
         font-size: 0.8rem;
         border-bottom: 1px solid rgba(124,58,237,0.07);
       }
-      section { padding: 4rem 1.5rem; }
+      section { padding: 4rem 1.5rem 9rem; }
       #hero { padding: 0 1.5rem; }
       #about-wrap { grid-template-columns: 1fr; }
       .edu-grid { grid-template-columns: 1fr; }
@@ -700,14 +700,13 @@
       font-size: 0.67rem;
       text-transform: uppercase;
       letter-spacing: 0.07em;
-      padding: 0.6rem 0.85rem;
-      border-radius: 6px;
-      border: 1px solid rgba(124,58,237,0.25);
-      background: rgba(255,255,255,0.85);
-      color: var(--text);
+      padding: 0.65rem 1rem;
+      border: none;
+      color: #ffffff;
+      font-weight: 700;
       cursor: pointer;
       text-align: left;
-      transition: all 0.2s;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -715,22 +714,33 @@
       width: 100%;
     }
 
-    .fc-folder-btn:hover {
-      border-color: rgba(124,58,237,0.35);
-      color: var(--accent);
-      background: rgba(124,58,237,0.04);
-    }
+    .fc-folder-btn:hover { transform: scale(1.04); }
 
     .fc-folder-btn.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(124,58,237,0.15);
-      font-weight: 700;
+      transform: scale(1.05);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.22);
     }
+
+    /* Each folder button gets its own blob shape + color */
+    #fc-sidebar .fc-folder-btn:nth-child(1) {
+      background: #06B6D4;
+      border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%;
+    }
+    #fc-sidebar .fc-folder-btn:nth-child(2) {
+      background: #7C3AED;
+      border-radius: 40% 60% 45% 55% / 55% 45% 60% 40%;
+    }
+    #fc-sidebar .fc-folder-btn:nth-child(3) {
+      background: #F97316;
+      border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+    }
+    #fc-sidebar .fc-folder-btn:nth-child(1):hover { background: #0891b2; }
+    #fc-sidebar .fc-folder-btn:nth-child(2):hover { background: #6d28d9; }
+    #fc-sidebar .fc-folder-btn:nth-child(3):hover { background: #ea6c00; }
 
     .fc-folder-count {
       font-size: 0.6rem;
-      opacity: 0.8;
+      opacity: 0.85;
       margin-left: auto;
     }
 
@@ -822,18 +832,23 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 0.75rem 1.75rem;
-      border-radius: 4px;
-      border: 1px solid rgba(124,58,237,0.4);
-      color: var(--accent);
-      background: rgba(255,255,255,0.85);
+      border: none;
+      color: #ffffff;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: transform 0.15s, background 0.2s;
     }
 
-    .fc-btn:hover:not(:disabled) {
-      border-color: var(--accent);
-      background: rgba(124,58,237,0.06);
+    #fc-prev {
+      background: #F59E0B;
+      border-radius: 40% 60% 70% 30% / 50% 50% 60% 40%;
     }
+    #fc-next {
+      background: #6366F1;
+      border-radius: 60% 40% 30% 70% / 40% 60% 50% 50%;
+    }
+    #fc-prev:hover:not(:disabled) { background: #d97706; transform: scale(1.06); }
+    #fc-next:hover:not(:disabled) { background: #4f46e5; transform: scale(1.06); }
 
     .fc-btn:disabled { opacity: 0.3; cursor: default; }
 
@@ -898,7 +913,9 @@
 
     @media (max-width: 640px) {
       #fc-wrap { flex-direction: column; }
-      #fc-sidebar { flex-direction: row; flex-wrap: wrap; min-width: 0; }
+      #fc-sidebar { flex-direction: row; flex-wrap: wrap; min-width: 0; justify-content: center; }
+      #flashcards h2 { text-align: center; }
+      #flashcards .section-label { justify-content: center; }
     }
   </style>
 </head>
@@ -1429,10 +1446,18 @@ What is the International Space Station (ISS)?,A modular outpost in low Earth or
     }).filter(c => c && c.q && c.a);
   }
 
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
   function getDeck(folder) {
-    if (folder === 'All') return [...allCards];
-    if (folder === 'Wrong') { const w = getWrong(); return allCards.filter(c => w.has(c.q)); }
-    return allCards.filter(c => c.cat === folder);
+    if (folder === 'All') return shuffle([...allCards]);
+    if (folder === 'Wrong') { const w = getWrong(); return shuffle(allCards.filter(c => w.has(c.q))); }
+    return shuffle(allCards.filter(c => c.cat === folder));
   }
 
   // ── Sidebar ──
@@ -1591,11 +1616,15 @@ What is the International Space Station (ISS)?,A modular outpost in low Earth or
   const h2 = document.querySelector('#flashcards h2');
   if (!h2) return;
   const text = h2.textContent;
-  h2.innerHTML = [...text].map((char, i) => {
-    if (char === ' ') return ' ';
-    const font = fonts[i % fonts.length];
-    return `<span style="font-family:'${font}',cursive;">${char}</span>`;
-  }).join('');
+  let ci = 0;
+  h2.innerHTML = text.split(' ').map(word => {
+    const chars = [...word].map(char => {
+      const font = fonts[ci % fonts.length];
+      ci++;
+      return `<span style="font-family:'${font}',cursive;">${char}</span>`;
+    }).join('');
+    return `<span style="display:inline-block;white-space:nowrap;">${chars}</span>`;
+  }).join(' ');
 })();
 
 // Auto-calculate Astranis tenure

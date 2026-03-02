@@ -705,10 +705,11 @@
       color: #ffffff;
       font-weight: 700;
       cursor: pointer;
-      text-align: left;
+      text-align: center;
       transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.4rem;
       white-space: nowrap;
       width: 100%;
@@ -738,10 +739,15 @@
     #fc-sidebar .fc-folder-btn:nth-child(2):hover { background: #6d28d9; }
     #fc-sidebar .fc-folder-btn:nth-child(3):hover { background: #ea6c00; }
 
+    .fc-wrong-btn {
+      margin-top: 1.25rem;
+      font-size: 0.63rem;
+      padding: 0.45rem 0.75rem;
+    }
+
     .fc-folder-count {
       font-size: 0.6rem;
       opacity: 0.85;
-      margin-left: auto;
     }
 
     #fc-progress {
@@ -1475,7 +1481,7 @@ What is the International Space Station (ISS)?,A modular outpost in low Earth or
     csvCats.forEach(cat => {
       html += btn(cat, '🗂️', cat, allCards.filter(c => c.cat === cat).length);
     });
-    html += btn('Wrong', '✗', 'Wrong', wrong.size);
+    html += `<button class="fc-folder-btn fc-wrong-btn${activeFolder === 'Wrong' ? ' active' : ''}" data-folder="Wrong">✗ Wrong<span class="fc-folder-count">${wrong.size}</span></button>`;
 
     sidebar.innerHTML = html;
 
